@@ -1,4 +1,4 @@
-/*!
+/*
  * Tabledit v1.2.3 ()
  * Copyright (c) 2015 Celso Marques
  * @author  Celso Marques
@@ -13,7 +13,7 @@
  * @link    https://github.com/BluesatKV/jquery-tabledit
  */
  
-/**
+/*!
  * jTableManager
  * @version 1.0
  * @author  eafarooqi
@@ -413,11 +413,11 @@ if (typeof jQuery === 'undefined') {
               }
 
               var toolbar = '<div class="tabledit-toolbar ' + settings.toolbarClass + '" style="text-align: left;">\n\
-                                           <div class="' + settings.groupClass + '" style="float: none;">' + editButton + deleteButton + '</div>\n\
-                                           ' + saveButton + '\n\
-                                           ' + confirmButton + '\n\
-                                           ' + restoreButton + '\n\
-                                       </div></div>';
+              <div class="' + settings.groupClass + '" style="float: none;">' + editButton + deleteButton + '</div>\n\
+              ' + saveButton + '\n\
+              ' + confirmButton + '\n\
+              ' + restoreButton + '\n\
+              </div></div>';
 
               // Add toolbar column cells for normal cell
               $table.find('tbody > tr:not(".' + settings.noEditClass + '")').append('<td class="toolbar" style="white-space: nowrap; width: 1%;">' + toolbar + '</td>');
@@ -474,10 +474,17 @@ if (typeof jQuery === 'undefined') {
           if (settings.autoFocus) {
             // in case if disableSelectAutoFocus is set to false focus will not be set only for select element
             if(!$input.is("select") || !settings.disableSelectAutoFocus) {
-              $input.focus();    
+              $input.focus();
+              
+              // selecting the editable text
+              if (settings.textSelection == true) 
+              {
+                $input.select();
+              }
               
               // setting cursor position to end
-              if (settings.cursorPosition == 'end') {
+              // works only if textselection is disabled
+              if (settings.cursorPosition == 'end' && settings.textSelection == false) {
                 $input.putCursorAtEnd()
                 .on("focus", function() { 
                   $input.putCursorAtEnd()
@@ -977,6 +984,8 @@ if (typeof jQuery === 'undefined') {
     cursorPosition: 'start',
     // Hide the deleted row after its deleted.
     hideDeletedRow: false,
+    // select the text when a column is edited.
+    textSelection:false,
     // Localization -(en, default) - LowerCase or UpperCase
     lang: 'en',
     // Debug mode
