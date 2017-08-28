@@ -833,11 +833,33 @@ if (typeof jQuery === 'undefined') {
 
             break;
           case 27: // Escape.
-
+          
             Edit.reset($td);
             Delete.reset($td);
 
             break;
+          case 40: // down arrow
+          if (!settings.editButton && settings.allowArrowKeyMovement == true) 
+          {
+            var index = $td.index();
+            var $bottom_tr = $td.parent('tr').next();
+            var $bottom_td = $bottom_tr.find('td').eq(index);
+            Edit.submit($td);
+            Mode.edit($bottom_td);
+          }
+            
+          break;
+          case 38: // up arrow
+          if (!settings.editButton && settings.allowArrowKeyMovement == true) 
+          {
+            var index = $td.index();
+            var $upper_tr = $td.parent('tr').prev();
+            var $upper_td = $upper_tr.find('td').eq(index);
+            Edit.submit($td);
+            Mode.edit($upper_td);
+          }
+            
+          break;
         }
       });
 
@@ -986,6 +1008,8 @@ if (typeof jQuery === 'undefined') {
     hideDeletedRow: false,
     // select the text when a column is edited.
     textSelection:false,
+    // select the text when a column is edited.
+    allowArrowKeyMovement:true,
     // Localization -(en, default) - LowerCase or UpperCase
     lang: 'en',
     // Debug mode
