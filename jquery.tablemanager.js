@@ -800,7 +800,7 @@ if (typeof jQuery === 'undefined') {
        *
        * @param {object} event
        */
-      $table.on('keypress', function (event) {
+      $table.on('keypress, keydown', function (event) {
 
         // Get input element with focus or confirmation button.
         var $input = $table.find('.tabledit-input:visible');
